@@ -11,6 +11,23 @@ export const GET = async () => {
   }
 };
 
+export const GETBYID = async (id: string) => {
+  try {
+    const neededProduct = await prisma.products.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (neededProduct) return NextResponse.json(neededProduct);
+    else
+      return NextResponse.json(
+        { error: "Product was not found!!" },
+        { status: 404 }
+      );
+  } catch (err) {
+    return NextResponse.json({ error: "Something went wrong!!" });
+  }
+};
+
 export const POST = async (request: NextRequest) => {
   try {
     const body = await request.json();
@@ -52,3 +69,7 @@ export const POST = async (request: NextRequest) => {
     );
   }
 };
+
+export const PUT = async () => {};
+
+export const UPDATE = async () => {};

@@ -5,6 +5,7 @@ import {
   IconListDetails,
   IconPackage,
 } from "@tabler/icons-react";
+import profile from "@/public/unreal-me-2.png"
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/prisma/client";
@@ -54,7 +55,7 @@ const SellerInterfaceLayout = async ({
     <div className="flex flex-row w-screen h-screen bg-[#050505]">
       <SideNavigationBar
         username={user.username}
-        profileImage={user.profile?.img_url || "/default-avatar.png"}
+        profileImage={profile}
         pages={pages}
         userRole={user.role}
       />
