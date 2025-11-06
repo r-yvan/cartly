@@ -21,7 +21,7 @@ interface Product {
 const Cart = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const fetchProducts = async () => {
-    const productsFromDb = await fetch("http://localhost:3001/api/products");
+    const productsFromDb = await fetch("/api/products");
     const prods = await productsFromDb.json();
     setProducts(prods);
     console.log(prods);

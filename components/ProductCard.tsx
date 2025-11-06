@@ -43,16 +43,26 @@ const ProductCard = ({ image, likes, name, description, price }: Props) => {
             <p className="text-xl text-white">$ {price}</p>
           </div>
         </div>
-        <div
-          className="flex w-40 px-3 py-2 justify-center items-center bg-violet-700 rounded-lg"
-          onClick={() => {
-            setIsLoading(true);
-            setTimeout(() => {
-              setIsLoading(false);
-              console.log("Added to cart!");
-            }, 2000);
-          }}
-        >
+        <div className="flex w-40 px-3 py-2 justify-center items-center bg-violet-700 rounded-lg">
+          <button
+            className="w-full flex items-center justify-center"
+            onClick={async () => {
+              try {
+                setIsLoading(true);
+                await fetch("/api/cart", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ productId: image /* placeholder: component doesn't receive id yet */ }),
+                });
+                // simple feedback
+                console.log("Added to cart");
+              } catch (err) {
+                console.error("Failed to add to cart", err);
+              } finally {
+                setIsLoading(false);
+              }
+            }}
+          >
           {isLoading ? (
             <Bars
               height="24"
@@ -69,6 +79,7 @@ const ProductCard = ({ image, likes, name, description, price }: Props) => {
               <p>Add to Cart</p>
             </div>
           )}
+          </button>
         </div>
         <Image
           src={svg}
